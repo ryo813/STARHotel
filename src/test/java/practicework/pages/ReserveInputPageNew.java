@@ -1,16 +1,21 @@
 package practicework.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
-public class ReserveInputPage {
+public class ReserveInputPageNew {
     private final WebDriver driver;
+
+    private final By reserveDay = By.id("datePick");
+    private final By reserveTerm = By.id("reserve_term");
+
     private final By reserveYear = By.id("reserve_year");
     private final By reserveMonth = By.id("reserve_month");
-    private final By reserveDay = By.id("reserve_day");
-    private final By reserveTerm = By.id("reserve_term");
-    private final By goToNext = By.id("goto_next");
+
+    private final By goToNext = By.id("agree_and_goto_next");
     private final By reservePerson = By.id("headcount");
     private final By breakfast_on = By.id("breakfast_on");
     private final By breakfast_off = By.id("breakfast_off");
@@ -20,7 +25,7 @@ public class ReserveInputPage {
     private final By commit = By.id("commit");
 
 
-    public ReserveInputPage(WebDriver driver) {
+    public ReserveInputPageNew(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -43,15 +48,16 @@ public class ReserveInputPage {
     }
 
     public void setReserveDate(String year, String month, String day) {
-        setReserveYear(year);
-        setReserveMonth(month);
-        setReserveDay(day);
+        WebElement element = driver.findElement(reserveDay);
+        element.clear();
+        element.sendKeys(year + "/" + month + "/" + day);
+        element.sendKeys(Keys.RETURN);
     }
 
     public void setReserveTerm(String value) {
         WebElement element = driver.findElement(reserveTerm);
-        element.clear();
-        element.sendKeys(value);
+        Select select = new Select(element);
+        select.selectByValue(value);
     }
 
     public ReserveConfirmPage goToNext() {
@@ -65,9 +71,9 @@ public class ReserveInputPage {
     }
 
     public void setReservePerson(String value) {
-        WebElement person = driver.findElement(reservePerson);
-        person.clear();
-        person.sendKeys(value);    // 人数の変更
+        WebElement element = driver.findElement(reservePerson);
+        Select select = new Select(element);
+        select.selectByValue(value);
     }
 
     public void setBreakfast(boolean on) {

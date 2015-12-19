@@ -27,8 +27,15 @@ public class PracticeWork3Test extends ChromeDriverTest {
         driver.get(url);
         
         ReserveInputPage inputPage = new ReserveInputPage(driver);
-        inputPage.setReserveDate("2013", "12", "8"); // TODO 明日以降直近の日曜日に変更してください
+        inputPage.setReserveDate("2015", "12", "27");  // TODO 明日以降直近の土曜日に変更してください
         inputPage.setReserveTerm("3");
+        // TODO 残りの処理を記述してください
+        inputPage.setReservePerson("1");
+        inputPage.setBreakfast(false);
+        inputPage.setKankoHiru(false);
+        inputPage.setKankoToku(false);
+        inputPage.setName("aaaa");
+
         
         // TODO 残りの処理を記述してください
         
@@ -36,10 +43,22 @@ public class PracticeWork3Test extends ChromeDriverTest {
         
         // 2ページ目入力画面
         assertThat(confirmPage.getPrice(), is("22750"));
-        assertThat(confirmPage.getDateFrom(), is("2013年12月8日")); // TODO 変更してください
-        assertThat(confirmPage.getDateTo(), is("2013年12月11日")); // TODO 変更してください
+        assertThat(confirmPage.getDateFrom(), is("2015年12月27日")); // TODO 変更してください
+        assertThat(confirmPage.getDateTo(), is("2015年12月30日")); // TODO 変更してください
         assertThat(confirmPage.getDaysCount(), is("3"));
 
         // TODO 残りの処理を記述してください
+        assertThat(confirmPage.getPerson(), is("1"));
+        assertThat(confirmPage.getBreakfast(), is("なし"));
+        if (confirmPage.existsKankoHiru()) {
+            assertThat(confirmPage.getKankoHiru(), is("昼からチェックインプラン"));
+        }
+        if (confirmPage.existsKankoToku()) {
+            assertThat(confirmPage.getKankoToku(), is("お得な観光プラン"));
+        }
+        assertThat(confirmPage.getGuestname(), is("aaaa"));
+
+        // 最終ページへ遷移
+        ReserveConfirmPage finishPage = inputPage.goToFinish();
     }
 }

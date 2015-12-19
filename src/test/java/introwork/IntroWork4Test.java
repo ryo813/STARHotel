@@ -2,6 +2,8 @@ package introwork;
 
 import core.ChromeDriverTest;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.io.File;
 
@@ -16,7 +18,9 @@ public class IntroWork4Test extends ChromeDriverTest {
         driver.get(url);
         
         // TODO 以下を削除して、代わりにラジオボタンを選択する処理を記述してください
-        Thread.sleep(8000);
+        //Thread.sleep(8000);
         // TODO ここまで削除してください
+        WebElement radio = driver.findElement(By.id("on_radio"));
+        radio.click();
     }
 }
