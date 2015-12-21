@@ -37,7 +37,7 @@ for ni = 1 : Nite
   Xcan = lhsdesign(Ncan,M);  % Latin hypercube sampling による乱数生成
                              % Xcan ∈ [0,1] であるため，適宜スケール変換
   % スケール変換 (ついでプロットのためににソートもしてるよ)
-  Xcan = sort( 100 * Xcan - 50 );
+  Xcan = 100 * Xcan - 50;
 
   % Step1 : hyperparameter の候補値集合を生成
   Theta = MCMC(X,Y,theta_init,Ngen,Nburn);
@@ -56,15 +56,15 @@ for ni = 1 : Nite
   Y = [ Y; ynew ];
   
   % おまけ：可視化（ここは適宜消してね）
-  xplot = -50 : 0.1 : 50;
-  yplot  = optfunc(xplot);
-  plot(xplot,yplot,'m-.','linewidth',2);
-  hold on;
-  plot(X,Y,'ro','linewidth',2);
-  plot(Xcan,mu,'b','linewidth',1);  % プロットしちゃう
-  plot(xnew,ynew,'bo','linewidth',2); % つぎの点もプロットしちゃう
-  hold off;
-  print('-depsc',['img/img_',num2str(ni),'.eps']); % ついでに保存もしちゃう
+%   xplot = -50 : 0.1 : 50;
+%   yplot  = optfunc(xplot);
+%   plot(xplot,yplot,'m-.','linewidth',2);
+%   hold on;
+%   plot(X,Y,'ro','linewidth',2);
+%   plot(Xcan,mu,'b','linewidth',1);  % プロットしちゃう
+%   plot(xnew,ynew,'bo','linewidth',2); % つぎの点もプロットしちゃう
+%   hold off;
+%   print('-depsc',['img/img_',num2str(ni),'.eps']); % ついでに保存もしちゃう
   
 end
 
